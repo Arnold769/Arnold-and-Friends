@@ -1,0 +1,40 @@
+name: Deploy React and Node App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      # Step 3: Install dependencies and build frontend
+      - name: Install dependencies for frontend
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+      # Step 4: Install dependencies for backend
+      - name: Install dependencies for backend
+        run: |
+          cd ../backend
+          npm install
+
+      # Step 5: Deploy (Adjust based on your hosting)
+      - name: Deploy to Heroku/Render/Other
+        run: |
+          # Add deployment commands specific to your hosting
+          echo "Deployment steps go here"
