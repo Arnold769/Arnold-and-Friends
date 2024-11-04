@@ -1,4 +1,4 @@
-# .github/workflows/workflow.yaml
+
 
 name: CI/CD Pipeline
 
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      
+   
       - name: Check out the code
         uses: actions/checkout@v2
 
@@ -24,30 +24,31 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '22.11.0'  
-
-   
+    
       - name: Install dependencies
         run: npm install
+        working-directory: ./Arnold-and-Friends  
 
-     
+      
       - name: Run tests
         run: npm test
+        working-directory: ./Arnold-and-Friends  
 
+      
       - name: Build the application
         run: npm run build
+        working-directory: ./Arnold-and-Friends  
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build  
-
+    needs: build
 
     steps:
       - name: Check out the code
         uses: actions/checkout@v2
 
-     
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build  
+          publish_dir: ./Arnold-and-Friends/build  
